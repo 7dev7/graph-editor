@@ -21,7 +21,7 @@ namespace GraphEditor.Logic.Graphs
 
         public void Draw(Canvas canvas)
         {
-            if (Type == GraphType.ORIENTED)
+            if (Type == GraphType.DIRECTED)
             {
                 DrawArrow(canvas);
             }

@@ -2,7 +2,7 @@
 {
     public enum GraphType
     {
-        ORIENTED,
-        NON_ORIENTED,
+        DIRECTED,
+        UNDIRECTED,
     }
 }

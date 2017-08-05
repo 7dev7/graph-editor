@@ -5,10 +5,10 @@ namespace GraphEditor.Model
 {
     public class Graph
     {
-        public GraphType Type { get; private set; }
-
         public List<Vertex> Vertices { get; set; }
         public List<Edge> Edges { get; set; }
+        public GraphType Type { get; private set; }
+        public bool IsColored { get; set; }
 
         public Graph()
         {

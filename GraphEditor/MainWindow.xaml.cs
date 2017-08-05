@@ -14,9 +14,9 @@ namespace GraphEditor
     {
         private State state;
         private Drawer drawer;
-        private GraphType graphType = GraphType.NON_ORIENTED;
+        private GraphType graphType = GraphType.UNDIRECTED;
 
-        UIElement firstSelectedElem;
+        UIElement selectedElem;
 
         bool isDown;
         bool isDragging;
@@ -29,7 +29,7 @@ namespace GraphEditor
         public MainWindow()
         {
             InitializeComponent();
-            IniEvents();
+            InitializeEvents();
             drawer = new Drawer(canvas);
         }
 
@@ -42,21 +42,21 @@ namespace GraphEditor
             }
             if (state == State.EDGE)
             {
-                if (firstSelectedElem != null)
+                if (selectedElem != null)
                 {
                     var selectedElem = e.Source as UIElement;
 
                     if (selectedElem is Canvas || selectedElem is Line || selectedElem is ArrowLine ||
-                        firstSelectedElem is Canvas || firstSelectedElem is Line || firstSelectedElem is ArrowLine)
+                        this.selectedElem is Canvas || this.selectedElem is Line || this.selectedElem is ArrowLine)
                     {
-                        firstSelectedElem = null;
+                        this.selectedElem = null;
                         return;
                     }
-                    drawer.AddEdge(firstSelectedElem, selectedElem, graphType);
-                    firstSelectedElem = null;
+                    drawer.AddEdge(this.selectedElem, selectedElem, graphType);
+                    this.selectedElem = null;
                     return;
                 }
-                firstSelectedElem = e.Source as UIElement;
+                selectedElem = e.Source as UIElement;
                 startPoint = e.GetPosition(canvas);
                 return;
             }
@@ -73,10 +73,10 @@ namespace GraphEditor
                     isDown = true;
                     startPoint = e.GetPosition(canvas);
 
-                    firstSelectedElem = e.Source as UIElement;
+                    selectedElem = e.Source as UIElement;
 
-                    originalLeft = Canvas.GetLeft(firstSelectedElem);
-                    originalTop = Canvas.GetTop(firstSelectedElem);
+                    originalLeft = Canvas.GetLeft(selectedElem);
+                    originalTop = Canvas.GetTop(selectedElem);
                     selected = true;
                     e.Handled = true;
                 }
@@ -126,8 +126,8 @@ namespace GraphEditor
                     {
                         Point position = Mouse.GetPosition(canvas);
 
-                        Canvas.SetTop(firstSelectedElem, position.Y - (startPoint.Y - originalTop));
-                        Canvas.SetLeft(firstSelectedElem, position.X - (startPoint.X - originalLeft));
+                        Canvas.SetTop(selectedElem, position.Y - (startPoint.Y - originalTop));
+                        Canvas.SetLeft(selectedElem, position.X - (startPoint.X - originalLeft));
                     }
                 }
             }
@@ -137,34 +137,28 @@ namespace GraphEditor
         {
             if (e.Key == Key.Delete)
             {
-                if (firstSelectedElem != null)
+                if (selectedElem != null)
                 {
-                    if (firstSelectedElem is Ellipse)
+                    if (selectedElem is Ellipse)
                     {
-                        drawer.DeleteVertex(firstSelectedElem);
+                        drawer.DeleteVertex(selectedElem);
                     }
-                    if (firstSelectedElem is Line || firstSelectedElem is ArrowLine)
+                    if (selectedElem is Line || selectedElem is ArrowLine)
                     {
-                        drawer.DeleteEdge(firstSelectedElem);
+                        drawer.DeleteEdge(selectedElem);
                     }
-                    firstSelectedElem = null;
+                    selectedElem = null;
                 }
             }
         }
 
         private void ClearSelected()
         {
-            if (selected)
-            {
-                selected = false;
-                if (firstSelectedElem != null)
-                {
-                    firstSelectedElem = null;
-                }
-            }
+            selected = false;
+            selectedElem = null;
         }
 
-        private void IniEvents()
+        private void InitializeEvents()
         {
             vertexBtn.Checked += (s, e) => { state = State.VERTEX; ClearSelected(); };
             edgeBtn.Checked += (s, e) => { state = State.EDGE; ClearSelected(); };
@@ -179,14 +173,14 @@ namespace GraphEditor
 
         private void ChangeType()
         {
-            if (graphType == GraphType.NON_ORIENTED)
+            if (graphType == GraphType.UNDIRECTED)
             {
-                graphType = GraphType.ORIENTED;
+                graphType = GraphType.DIRECTED;
                 typeLabel.Content = "Directed graph";
             }
             else
             {
-                graphType = GraphType.NON_ORIENTED;
+                graphType = GraphType.UNDIRECTED;
                 typeLabel.Content = "Undirected graph";
             }
         }

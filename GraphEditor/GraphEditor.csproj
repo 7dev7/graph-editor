@@ -66,13 +66,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Logic\Drawer.cs" />
-    <Compile Include="Logic\Graph.cs" />
-    <Compile Include="Logic\Graph\Edge.cs" />
-    <Compile Include="Logic\Graph\GraphType.cs" />
-    <Compile Include="Logic\Graph\Vertex.cs" />
-    <Compile Include="Logic\Painter.cs" />
-    <Compile Include="Logic\StateEnum.cs" />
+    <Compile Include="logic\Drawer.cs" />
+    <Compile Include="logic\Graph.cs" />
+    <Compile Include="logic\Graph\Edge.cs" />
+    <Compile Include="logic\Graph\GraphType.cs" />
+    <Compile Include="logic\Graph\Vertex.cs" />
+    <Compile Include="logic\Painter.cs" />
+    <Compile Include="logic\StateEnum.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

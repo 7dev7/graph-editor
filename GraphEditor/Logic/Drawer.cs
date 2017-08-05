@@ -2,19 +2,17 @@
 using System.Windows.Controls;
 using GraphEditor.Logic.Graphs;
 using System.Collections.Generic;
+using GraphEditor.Logic;
 
 namespace GraphEditor.Model
 {
     public class Drawer
     {
         public Graph Graph { get; set; }
+        private Canvas canvas;
         private const int OFFSET = 15;
         private const int VERTEX_SIZE = 30;
         private const int THICKNESS = 2;
-
-        private Canvas canvas;
-
-        private List<UIElement> Edges { get; set; }
 
         public Drawer(Canvas canvas)
         {
@@ -42,6 +40,12 @@ namespace GraphEditor.Model
             v2.IncidenceEdges.Add(edg);
 
             edg.Draw(canvas);
+
+            if (Graph.IsColored)
+            {
+                Painter painter = new Painter(canvas);
+                painter.Colorize(Graph);
+            }
         }
 
         public void DeleteVertex(UIElement elem)
@@ -53,7 +57,14 @@ namespace GraphEditor.Model
                 canvas.Children.Remove(edge.line);
                 canvas.Children.Remove(edge.arrowLine);
             }
-            canvas.Children.Remove(elem);
+            Graph.Vertices.RemoveAll(it => it.Element == elem);
+            canvas.Children.Remove(elem);            
+
+            if (Graph.IsColored)
+            {
+                Painter painter = new Painter(canvas);
+                painter.Colorize(Graph);
+            }
         }
 
         public void DeleteEdge(UIElement elem)
@@ -66,6 +77,12 @@ namespace GraphEditor.Model
             Graph.Edges.RemoveAll(it => it.line == elem);
             Graph.Edges.RemoveAll(it => it.arrowLine == elem);
             canvas.Children.Remove(elem);
+
+            if (Graph.IsColored)
+            {
+                Painter painter = new Painter(canvas);
+                painter.Colorize(Graph);
+            }
         }
 
         public List<Edge> getIncidenceEdges(UIElement elem)

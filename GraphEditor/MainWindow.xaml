@@ -13,8 +13,8 @@
             <RadioButton Content="Edge" Cursor="Hand" Style="{StaticResource radBtnStyle}" Name="edgeBtn"/>
             <RadioButton Content="Cursor" Style="{StaticResource radBtnStyle}" Cursor="Hand" Name="cursorBtn"/>
             <Button Content="Change graph type" Cursor="Hand" Style="{StaticResource btnStyle}" Name="typeBtn"/>
-            <Button Content="Paint graph" Cursor="Hand" Style="{StaticResource btnStyle}" Name="colorBtn"/>
-            <Button Content="Reset paint" Cursor="Hand" Style="{StaticResource btnStyle}" Name="resetColorBtn"/>
+            <Button Content="Graph coloring" Cursor="Hand" Style="{StaticResource btnStyle}" Name="colorBtn"/>
+            <Button Content="Reset coloring" Cursor="Hand" Style="{StaticResource btnStyle}" Name="resetColorBtn"/>
             <Label Content="Undirected graph" Name="typeLabel" VerticalAlignment="Center"></Label>
         </ToolBar>
 

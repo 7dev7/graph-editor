@@ -23,8 +23,11 @@ namespace GraphEditor.Logic
 
         public void Colorize(Graph graph)
         {
+            if (graph.Vertices.Count == 0)
+            {
+                return;
+            }
             Vertex[] vertices = graph.Vertices.OrderByDescending(it => it.IncidenceEdges.Count).ToArray();
-
             vertices[0].SetColor(colors[0], canvas, 0);
 
             for (int i = 1; i < vertices.Length; i++)
@@ -37,13 +40,13 @@ namespace GraphEditor.Logic
 
                     if (adjVertex.ColorIndex != null)
                     {
-                        //maxIndex = (adjVertex.ColorIndex.Value >= maxIndex) ? adjVertex.ColorIndex.Value : maxIndex;
                         colorIndexes.Add(adjVertex.ColorIndex.Value);
                     }
                 }
                 int minColorIndex = GetLowerNumber(colorIndexes);
                 vertex.SetColor(colors[minColorIndex], canvas, minColorIndex);
             }
+            graph.IsColored = true;
         }
 
         public void ResetColors(Graph graph)
@@ -52,6 +55,7 @@ namespace GraphEditor.Logic
             {
                 vertex.SetColor(DEFAULT_COLOR, canvas, null);
             }
+            graph.IsColored = false;
         }
 
         private int GetLowerNumber(List<int> adjIndex)
