@@ -10,9 +10,6 @@ namespace GraphEditor.Model
     {
         public Graph Graph { get; set; }
         private Canvas canvas;
-        private const int OFFSET = 15;
-        private const int VERTEX_SIZE = 30;
-        private const int THICKNESS = 2;
 
         public Drawer(Canvas canvas)
         {

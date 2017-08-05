@@ -20,7 +20,6 @@ namespace GraphEditor
 
         bool isDown;
         bool isDragging;
-        bool selected;
 
         Point startPoint;
         private double originalLeft;
@@ -77,7 +76,6 @@ namespace GraphEditor
 
                     originalLeft = Canvas.GetLeft(selectedElem);
                     originalTop = Canvas.GetTop(selectedElem);
-                    selected = true;
                     e.Handled = true;
                 }
                 return;
@@ -154,7 +152,6 @@ namespace GraphEditor
 
         private void ClearSelected()
         {
-            selected = false;
             selectedElem = null;
         }
 

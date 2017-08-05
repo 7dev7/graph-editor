@@ -10,9 +10,7 @@ namespace GraphEditor.Logic.Graphs
     {
         public Point VertexPoint { get; set; }
         public List<Edge> IncidenceEdges { get; set; }
-
         public Ellipse Element = new Ellipse();
-
         public int? ColorIndex = null;
 
         public Vertex(Point point)
@@ -30,8 +28,8 @@ namespace GraphEditor.Logic.Graphs
             Element.SetValue(Canvas.LeftProperty, VertexPoint.X);
             Element.SetValue(Canvas.TopProperty, VertexPoint.Y);
 
-            Element.Width = 30;
-            Element.Height = 30;
+            Element.Width = 35;
+            Element.Height = 35;
 
             canvas.Children.Add(Element);
         }
